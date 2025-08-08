@@ -1,12 +1,7 @@
-import ChatInterface from "@/components/chat";
-import React from "react";
+import { redirect } from 'next/navigation';
 
 const Page = () => {
-  return (
-    <div>
-      <ChatInterface />
-    </div>
-  );
+  redirect('/prob6');
 };
 
 export default Page;
