@@ -23,6 +23,7 @@
     "@eslint/eslintrc": "^3",
     "@types/aws-lambda": "^8.10.152",
     "@types/node": "^20",
+    "@types/pdf-parse": "^1.1.5",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",

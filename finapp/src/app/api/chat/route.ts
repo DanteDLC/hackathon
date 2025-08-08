@@ -4,12 +4,19 @@ import {
 } from "@aws-sdk/client-bedrock-runtime";
 import { NextRequest, NextResponse } from "next/server";
 
+const filePath = './MER.pdf';
+
 const bedrockClient = new BedrockRuntimeClient({
     region: "us-east-1",
 });
 
 export async function POST(request: NextRequest) {
     try {
+
+
+
+        // FR
+
         const { message, conversationHistory } = await request.json();
 
         const assistantPrompt = `
@@ -56,7 +63,7 @@ If the Veteran is eligible for future benefits, provide a brief explanation of w
             },
             {
                 role: "user",
-                content: message,
+                content: `${message}`,
             },
         ];
 
