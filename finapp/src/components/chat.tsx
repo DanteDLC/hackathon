@@ -759,6 +759,15 @@ export default function ChatInterface({ pageType }: ChatInterfaceProps) {
                   <option value="us.anthropic.claude-3-opus-20240229-v1:0">
                     🧠 Claude 3 Opus
                   </option>
+                  <option value="us.anthropic.claude-3-7-sonnet-20250219-v1:0">
+                    Claude 3.7 Sonnet
+                  </option>
+                  <option value="us.anthropic.claude-sonnet-4-20250514-v1:0">
+                    Claude 4 Sonnet
+                  </option>
+                  <option value="us.anthropic.claude-opus-4-20250514-v1:0">
+                    Claude 4 Opus
+                  </option>
                 </select>
               </div>
 
