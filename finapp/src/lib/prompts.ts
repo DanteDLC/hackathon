@@ -45,9 +45,12 @@ Claims with missing/insufficient documents (with reasons)
 
 Claims approved for packet generation
 
-Use markdown formatting like **bold**, *italic*, bullet points, and headers for clear structure.`
+Use markdown formatting like **bold**, *italic*, bullet points, and headers for clear structure.`,
 };
 
 export const getAssistantPrompt = (pageType: string): string => {
-  return assistantPrompts[pageType as keyof typeof assistantPrompts] || assistantPrompts.prob6;
+  return (
+    assistantPrompts[pageType as keyof typeof assistantPrompts] ||
+    assistantPrompts.prob6
+  );
 };
