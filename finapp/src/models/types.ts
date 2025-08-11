@@ -90,6 +90,8 @@ export type AIFeatureSettings = {
     temperature?: number | undefined;
     anthropicVersion?: string | undefined;
     maxTokens?: number | undefined;
+    topP?: number | undefined;
+    topK?: number | undefined;
 };
 
 export type AIFeatureKeys =

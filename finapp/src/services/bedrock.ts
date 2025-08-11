@@ -71,6 +71,12 @@ export const invokeCommand = async (
         temperature: featureSettings?.temperature
             ? Number(featureSettings?.temperature)
             : 0.5,
+        top_p: featureSettings?.topP
+            ? Number(featureSettings?.topP)
+            : 1.0,
+        top_k: featureSettings?.topK
+            ? Number(featureSettings?.topK)
+            : 250,
         messages: message,
         anthropic_version:
             featureSettings?.anthropicVersion || 'bedrock-2023-05-31',
@@ -110,6 +116,12 @@ export async function* invokeCommandStream(
         temperature: featureSettings?.temperature
             ? Number(featureSettings?.temperature)
             : 0.5,
+        top_p: featureSettings?.topP
+            ? Number(featureSettings?.topP)
+            : 1.0,
+        top_k: featureSettings?.topK
+            ? Number(featureSettings?.topK)
+            : 250,
         messages: message,
         anthropic_version:
             featureSettings?.anthropicVersion || 'bedrock-2023-05-31',
