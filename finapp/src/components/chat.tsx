@@ -444,7 +444,7 @@ export default function ChatInterface({ pageType }: ChatInterfaceProps) {
                 Total spent on {costLogs.length} requests
               </p>
             </div>
-            <div className="flex-1 overflow-y-auto p-4 space-y-3">
+            <div className="flex-1 overflow-y-auto p-4 space-y-3 h-3/4">
               {costLogs.length === 0 ? (
                 <div
                   className={`text-center py-8 transition-colors duration-300 ${
