@@ -184,45 +184,45 @@ export default function ChatInterface({ pageType }: ChatInterfaceProps) {
       blendedCostPerMillion: number;
     };
   } = {
-    'Claude 3.5 Haiku': {
+    "Claude 3.5 Haiku": {
       inputCostPerMillion: 0.8,
       outputCostPerMillion: 4.0,
       blendedCostPerMillion: 4.8,
     },
-    'Claude 3.5 Sonnet': {
+    "Claude 3.5 Sonnet": {
       inputCostPerMillion: 3.0,
       outputCostPerMillion: 15.0,
       blendedCostPerMillion: 18.0,
     },
-    'Claude 3.5 Sonnet v2': {
+    "Claude 3.5 Sonnet v2": {
       inputCostPerMillion: 3.0,
       outputCostPerMillion: 15.0,
       blendedCostPerMillion: 18.0,
     },
-    'Claude 3.7 Sonnet': {
+    "Claude 3.7 Sonnet": {
       inputCostPerMillion: 3.0,
       outputCostPerMillion: 15.0,
       blendedCostPerMillion: 18.0,
     },
-    'Claude Sonnet v2': {
+    "Claude Sonnet v2": {
       inputCostPerMillion: 3.0,
       outputCostPerMillion: 15.0,
       blendedCostPerMillion: 18.0,
     },
-    'Claude Opus 4': {
+    "Claude Opus 4": {
       inputCostPerMillion: 15.0,
       outputCostPerMillion: 75.0,
       blendedCostPerMillion: 90.0,
     },
-    'Claude Sonnet 4': {
-      inputCostPerMillion: 15.0,
+    "Claude Sonnet 4": {
+      inputCostPerMillion: 3.0,
       outputCostPerMillion: 75.0,
       blendedCostPerMillion: 90.0,
     },
-    'Amazon Nova Lite': {
+    "Amazon Nova Lite": {
       inputCostPerMillion: 0.06,
       outputCostPerMillion: 0.24,
-      blendedCostPerMillion: 0.30,
+      blendedCostPerMillion: 0.3,
     },
     default: {
       inputCostPerMillion: 0.15,
@@ -232,16 +232,27 @@ export default function ChatInterface({ pageType }: ChatInterfaceProps) {
   };
 
   const getModelCosts = (model: string) => {
-    const modelName = model.includes('haiku') ? 'Claude 3.5 Haiku' :
-                     model.includes('3-5-sonnet') ? 'Claude 3.5 Sonnet' :
-                     model.includes('3-7-sonnet') ? 'Claude 3.7 Sonnet' :
-                     model.includes('sonnet-4') ? 'Claude Sonnet 4' :
-                     model.includes('opus-4') ? 'Claude Opus 4' :
-                     model.includes('nova-lite') ? 'Amazon Nova Lite' : 'default';
+    const modelName = model.includes("haiku")
+      ? "Claude 3.5 Haiku"
+      : model.includes("3-5-sonnet")
+      ? "Claude 3.5 Sonnet"
+      : model.includes("3-7-sonnet")
+      ? "Claude 3.7 Sonnet"
+      : model.includes("sonnet-4")
+      ? "Claude Sonnet 4"
+      : model.includes("opus-4")
+      ? "Claude Opus 4"
+      : model.includes("nova-lite")
+      ? "Amazon Nova Lite"
+      : "default";
     return costsPerModel[modelName] || costsPerModel.default;
   };
 
-  const calculateCost = (model: string, inputTokens: number, outputTokens: number) => {
+  const calculateCost = (
+    model: string,
+    inputTokens: number,
+    outputTokens: number
+  ) => {
     const costs = getModelCosts(model);
     const inputCost = (inputTokens / 1000000) * costs.inputCostPerMillion;
     const outputCost = (outputTokens / 1000000) * costs.outputCostPerMillion;
