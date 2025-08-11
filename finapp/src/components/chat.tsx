@@ -177,27 +177,75 @@ export default function ChatInterface({ pageType }: ChatInterfaceProps) {
     return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
   };
 
-  const calculateCost = (
-    model: string,
-    inputTokens: number,
-    outputTokens: number
-  ) => {
-    const pricing = {
-      haiku: { input: 0.00025, output: 0.00125 },
-      sonnet: { input: 0.003, output: 0.015 },
-      opus: { input: 0.015, output: 0.075 },
+  const costsPerModel: {
+    [key: string]: {
+      inputCostPerMillion: number;
+      outputCostPerMillion: number;
+      blendedCostPerMillion: number;
     };
+  } = {
+    'Claude 3.5 Haiku': {
+      inputCostPerMillion: 0.8,
+      outputCostPerMillion: 4.0,
+      blendedCostPerMillion: 4.8,
+    },
+    'Claude 3.5 Sonnet': {
+      inputCostPerMillion: 3.0,
+      outputCostPerMillion: 15.0,
+      blendedCostPerMillion: 18.0,
+    },
+    'Claude 3.5 Sonnet v2': {
+      inputCostPerMillion: 3.0,
+      outputCostPerMillion: 15.0,
+      blendedCostPerMillion: 18.0,
+    },
+    'Claude 3.7 Sonnet': {
+      inputCostPerMillion: 3.0,
+      outputCostPerMillion: 15.0,
+      blendedCostPerMillion: 18.0,
+    },
+    'Claude Sonnet v2': {
+      inputCostPerMillion: 3.0,
+      outputCostPerMillion: 15.0,
+      blendedCostPerMillion: 18.0,
+    },
+    'Claude Opus 4': {
+      inputCostPerMillion: 15.0,
+      outputCostPerMillion: 75.0,
+      blendedCostPerMillion: 90.0,
+    },
+    'Claude Sonnet 4': {
+      inputCostPerMillion: 15.0,
+      outputCostPerMillion: 75.0,
+      blendedCostPerMillion: 90.0,
+    },
+    'Amazon Nova Lite': {
+      inputCostPerMillion: 0.06,
+      outputCostPerMillion: 0.24,
+      blendedCostPerMillion: 0.30,
+    },
+    default: {
+      inputCostPerMillion: 0.15,
+      outputCostPerMillion: 0.6,
+      blendedCostPerMillion: 0.26,
+    },
+  };
 
-    const modelType = model.includes("haiku")
-      ? "haiku"
-      : model.includes("sonnet")
-      ? "sonnet"
-      : "opus";
+  const getModelCosts = (model: string) => {
+    const modelName = model.includes('haiku') ? 'Claude 3.5 Haiku' :
+                     model.includes('3-5-sonnet') ? 'Claude 3.5 Sonnet' :
+                     model.includes('3-7-sonnet') ? 'Claude 3.7 Sonnet' :
+                     model.includes('sonnet-4') ? 'Claude Sonnet 4' :
+                     model.includes('opus-4') ? 'Claude Opus 4' :
+                     model.includes('nova-lite') ? 'Amazon Nova Lite' : 'default';
+    return costsPerModel[modelName] || costsPerModel.default;
+  };
 
-    return (
-      (inputTokens / 1000) * pricing[modelType].input +
-      (outputTokens / 1000) * pricing[modelType].output
-    );
+  const calculateCost = (model: string, inputTokens: number, outputTokens: number) => {
+    const costs = getModelCosts(model);
+    const inputCost = (inputTokens / 1000000) * costs.inputCostPerMillion;
+    const outputCost = (outputTokens / 1000000) * costs.outputCostPerMillion;
+    return inputCost + outputCost;
   };
 
   const addCostLog = (
@@ -760,13 +808,13 @@ export default function ChatInterface({ pageType }: ChatInterfaceProps) {
                     🧠 Claude 3 Opus
                   </option>
                   <option value="us.anthropic.claude-3-7-sonnet-20250219-v1:0">
-                    Claude 3.7 Sonnet
+                    🚀 Claude 3.7 Sonnet
                   </option>
                   <option value="us.anthropic.claude-sonnet-4-20250514-v1:0">
-                    Claude 4 Sonnet
+                    ⭐ Claude 4 Sonnet
                   </option>
                   <option value="us.anthropic.claude-opus-4-20250514-v1:0">
-                    Claude 4 Opus
+                    💎 Claude 4 Opus
                   </option>
                 </select>
               </div>

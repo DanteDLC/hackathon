@@ -65,9 +65,17 @@ export default function TopBar({
         >
           {aiConfig.model.includes("haiku")
             ? "⚡ Claude 3.5 Haiku"
-            : aiConfig.model.includes("sonnet")
+            : aiConfig.model.includes("3-5-sonnet")
             ? "🎨 Claude 3.5 Sonnet"
-            : "🧠 Claude 3 Opus"}{" "}
+            : aiConfig.model.includes("3-7-sonnet")
+            ? "🚀 Claude 3.7 Sonnet"
+            : aiConfig.model.includes("sonnet-4")
+            ? "⭐ Claude 4 Sonnet"
+            : aiConfig.model.includes("opus-4")
+            ? "💎 Claude 4 Opus"
+            : aiConfig.model.includes("3-opus")
+            ? "🧠 Claude 3 Opus"
+            : "Unknown Model"}{" "}
           • Temp: {aiConfig.temperature} • Tokens:{" "}
           {aiConfig.maxTokens.toLocaleString()} • Top-P: {aiConfig.topP} •
           Top-K: {aiConfig.topK}
